@@ -23,7 +23,7 @@ Définition du point d'entrée et de la commande par défaut:
 Le point d'entrée a été défini sur /home/whoami/start.sh.
 La commande par défaut a été définie sur nc -l 4323.
 
-start.sh
+start.sh : 
 Modification pour éviter d'écrire dans un répertoire en lecture seule:
 Les opérations d'écriture ont été redirigées vers le répertoire /tmp au lieu de /home/www.
 
