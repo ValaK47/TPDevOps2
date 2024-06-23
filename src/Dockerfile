@@ -4,7 +4,7 @@
 FROM donch/net-tools
 
 # Ajouter un utilisateur non-root
-RUN addgroup -S group1 && adduser -S whoami -G group1
+RUN  adduser -S whoami
 
 # Installer les dépendances nécessaires
 RUN apk update && apk add --no-cache bash
