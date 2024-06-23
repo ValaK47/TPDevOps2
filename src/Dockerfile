@@ -1,23 +1,32 @@
 # Dockerfile for creating a Docker image with net-tools and a custom start script.
 
 # Use the donch/net-tools image as the base image.
-# This image likely contains network utilities like netstat, ifconfig, etc.
 FROM donch/net-tools
 
-# Copy the start.sh script from the local file system into the /bin directory of the image.
-# This script will be run when a container is started from this image.
-COPY start.sh /bin/start.sh
+# Ajouter un utilisateur non-root
+RUN addgroup -S group1 && adduser -S whoami -G group1
 
-# Expose port 4321 in the container.
-# This makes the port accessible to processes outside of the container.
-EXPOSE 4321
+# Installer les dépendances nécessaires
+RUN apk update && apk add --no-cache bash
+
+# Définir l'utilisateur non-root pour les prochaines instructions
+USER whoami
+WORKDIR /
+
+# Copier le script start.sh et lui donner les permissions d'exécution
+COPY start.sh /home/whoami/start.sh
 
 USER root
+RUN chmod +x /home/whoami/start.sh
 
-# Set /bin/start.sh as the entrypoint of the image.
-# The entrypoint is the command that is run when a container is started from this image.
-ENTRYPOINT ["/bin/start.sh"]
+USER whoami
+WORKDIR /
+
+# Expose port 4321 in the container.
+EXPOSE 4321
+
+# Set /home/whoami/start.sh as the entrypoint of the image.
+ENTRYPOINT ["/home/whoami/start.sh"]
 
 # Set "nc -l 4323" as the default command of the image.
-# This command will be run when a container is started from this image, unless the command is overridden.
 CMD ["nc", "-l", "4323"]
