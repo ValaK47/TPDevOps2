@@ -28,14 +28,17 @@ Modification pour éviter d'écrire dans un répertoire en lecture seule:
 Les opérations d'écriture ont été redirigées vers le répertoire /tmp au lieu de /home/www.
 
 Instructions d'Exécution
+
 Cloner le repository:
 
 git clone <URL_du_repository>
+
 cd <nom_du_repository>
 
 Rendre les scripts exécutables:
 
 chmod +x validator.sh
+
 chmod +x src/start.sh
 
 Exécuter le script de validation:
